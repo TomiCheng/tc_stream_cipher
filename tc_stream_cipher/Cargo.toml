@@ -1,0 +1,23 @@
+[package]
+name = "tc_stream_cipher"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Shared initialization and keystream processing traits, errors and wiping key and IV containers for stream ciphers."
+readme = "README.md"
+documentation = "https://docs.rs/tc_stream_cipher"
+keywords = ["stream-cipher", "cryptography", "no-std", "traits"]
+categories = ["cryptography", "no-std"]
+include = ["src/**", "README.md", "CHANGELOG.md", "LICENSE-MIT", "LICENSE-APACHE"]
+
+[package.metadata.docs.rs]
+all-features = true
+
+[features]
+default = []
+alloc = ["tc_zeroize/alloc"]
+
+[dependencies]
+tc_zeroize = "0.1.0"
