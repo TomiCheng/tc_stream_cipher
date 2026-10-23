@@ -444,6 +444,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "rc4"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "840038b674daa9f7a7957440d937951d15c0143c056e631e529141fd780e0c92"
+dependencies = [
+ "cipher",
+]
+
+[[package]]
 name = "regex"
 version = "1.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -477,6 +486,16 @@ name = "rustversion"
 version = "1.0.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf54715a573b99ac80df0bc206da022bcd442c974952c7b9720069370852e21f"
+
+[[package]]
+name = "salsa20"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2f874456e72520ff1375a06c588eaf074b0f01f9e9e1aada45bd9b7954a6e42c"
+dependencies = [
+ "cfg-if",
+ "cipher",
+]
 
 [[package]]
 name = "same-file"
@@ -571,6 +590,35 @@ dependencies = [
  "chacha20",
  "cipher",
  "criterion",
+ "tc_stream_cipher",
+ "tc_zeroize",
+]
+
+[[package]]
+name = "tc_hc"
+version = "0.1.0"
+dependencies = [
+ "tc_stream_cipher",
+ "tc_zeroize",
+]
+
+[[package]]
+name = "tc_rc4_family"
+version = "0.1.0"
+dependencies = [
+ "criterion",
+ "rc4",
+ "tc_stream_cipher",
+ "tc_zeroize",
+]
+
+[[package]]
+name = "tc_salsa20"
+version = "0.1.0"
+dependencies = [
+ "cipher",
+ "criterion",
+ "salsa20",
  "tc_stream_cipher",
  "tc_zeroize",
 ]
