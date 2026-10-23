@@ -2,7 +2,7 @@
 
 All notable changes to `tc_salsa20` are documented in this file.
 
-## 0.1.0 - Unreleased
+## 0.1.0 - 2026-10-24
 
 Initial release.
 
