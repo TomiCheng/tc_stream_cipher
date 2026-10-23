@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["tc_stream_cipher", "tc_chacha"]
+members = ["tc_stream_cipher", "tc_chacha", "tc_hc", "tc_rc4_family", "tc_salsa20"]
 
 [workspace.package]
 edition = "2024"
