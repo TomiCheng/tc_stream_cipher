@@ -1,0 +1,17 @@
+[package]
+name = "tc_hc"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "The HC-128 and HC-256 stream ciphers, kept for Bouncy Castle compatibility."
+readme = "README.md"
+documentation = "https://docs.rs/tc_hc"
+keywords = ["hc-128", "hc-256", "stream-cipher", "cryptography", "no-std"]
+categories = ["cryptography", "no-std"]
+include = ["src/**", "tests/**", "README.md", "CHANGELOG.md", "LICENSE-MIT", "LICENSE-APACHE"]
+
+[dependencies]
+tc_stream_cipher = { version = "0.1.0", path = "../tc_stream_cipher" }
+tc_zeroize = "0.1.0"

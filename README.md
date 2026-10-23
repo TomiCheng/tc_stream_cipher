@@ -3,8 +3,9 @@
 A Rust workspace for stream ciphers. It holds `tc_stream_cipher`, the shared
 traits, errors and key and IV containers through which an engine is
 initialized and applies its keystream, and the engine crates built on it:
-`tc_chacha`. Each crate is published separately and keeps its own README,
-changelog, and validation commands.
+`tc_chacha`, `tc_salsa20`, `tc_hc` and `tc_rc4_family`. Each crate is
+published separately and keeps its own README, changelog, and validation
+commands.
 
 [![CI](https://github.com/TomiCheng/tc_stream_cipher/actions/workflows/ci.yml/badge.svg)](https://github.com/TomiCheng/tc_stream_cipher/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](#license)
@@ -16,6 +17,9 @@ changelog, and validation commands.
 | --- | --- | --- |
 | [`tc_stream_cipher`](tc_stream_cipher) | [![crates.io](https://img.shields.io/crates/v/tc_stream_cipher.svg)](https://crates.io/crates/tc_stream_cipher) [![docs.rs](https://docs.rs/tc_stream_cipher/badge.svg)](https://docs.rs/tc_stream_cipher) | Initialization and keystream processing traits, reusable error types, and key and IV containers that borrow, or own and wipe, their bytes. No algorithm or authentication. `no_std`, no `unsafe`, depends only on `tc_zeroize`; a default-off `alloc` feature adds vector-backed containers. |
 | [`tc_chacha`](tc_chacha) | [![crates.io](https://img.shields.io/crates/v/tc_chacha.svg)](https://crates.io/crates/tc_chacha) [![docs.rs](https://docs.rs/tc_chacha/badge.svg)](https://docs.rs/tc_chacha) | The original ChaCha, IETF ChaCha20 (RFC 8439) and XChaCha20 with portable engines and selecting engines that use RustCrypto where it covers the request. Every engine is constant time. `no_std`, no allocator, no `unsafe`; depends on `tc_stream_cipher` and `tc_zeroize`. A default-off `rustcrypto` feature adds engines backed by RustCrypto's `chacha20`, which uses SIMD where the processor has it. |
+| [`tc_salsa20`](tc_salsa20) | [![crates.io](https://img.shields.io/crates/v/tc_salsa20.svg)](https://crates.io/crates/tc_salsa20) [![docs.rs](https://docs.rs/tc_salsa20/badge.svg)](https://docs.rs/tc_salsa20) | Salsa20 and XSalsa20 with portable engines and selecting engines that use RustCrypto where it covers the request. Every engine is constant time. `no_std`, no allocator, no `unsafe`; depends on `tc_stream_cipher` and `tc_zeroize`. A default-off `rustcrypto` feature adds engines backed by RustCrypto's `salsa20`. |
+| [`tc_hc`](tc_hc) | [![crates.io](https://img.shields.io/crates/v/tc_hc.svg)](https://crates.io/crates/tc_hc) [![docs.rs](https://docs.rs/tc_hc/badge.svg)](https://docs.rs/tc_hc) | HC-128 and HC-256 for Bouncy Castle compatibility. Both look up tables at secret positions and are not constant time. `no_std`, no allocator, no `unsafe`; depends on `tc_stream_cipher` and `tc_zeroize`. |
+| [`tc_rc4_family`](tc_rc4_family) | [![crates.io](https://img.shields.io/crates/v/tc_rc4_family.svg)](https://crates.io/crates/tc_rc4_family) [![docs.rs](https://docs.rs/tc_rc4_family/badge.svg)](https://docs.rs/tc_rc4_family) | RC4 and the two designs derived from it, VMPC (with VMPC-KSA3) and ISAAC, for legacy data and Bouncy Castle compatibility. None is constant time, and RC4 is broken. `no_std`, no allocator, no `unsafe`; depends on `tc_stream_cipher` and `tc_zeroize`. A default-off `rustcrypto` feature runs RC4 on RustCrypto's `rc4`. |
 
 `tc_stream_cipher` defines the contract and knows no algorithm; each engine
 crate implements it and documents its own key and IV lengths, keystream limits
@@ -29,8 +33,9 @@ reaches the heap only through `tc_stream_cipher`'s default-off `alloc` feature.
 Rust 1.85 is the earliest compiler for edition 2024, and it is guaranteed for
 every build that uses only this workspace's crates and their `tc_*`
 dependencies. A feature that enables a third-party crate, such as the
-`rustcrypto` feature of `tc_chacha`, follows that crate's minimum Rust version
-instead, and dev-dependencies used only by tests and benchmarks are exempt.
+`rustcrypto` features of `tc_chacha`, `tc_salsa20` and `tc_rc4_family`, follows
+that crate's minimum Rust version instead, and dev-dependencies used only by
+tests and benchmarks are exempt.
 The workspace lock tracks the latest dependency releases, so CI on stable
 tests what a user on a current toolchain resolves.
 
