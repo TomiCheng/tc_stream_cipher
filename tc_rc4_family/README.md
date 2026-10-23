@@ -58,6 +58,11 @@ changes which keys are accepted. It can neither seek nor be cloned, so
 `Rc4RustCryptoEngine` keeps a copy of the key, wiped on drop, and `reset`
 reruns the key schedule.
 
+The feature does not make RC4 faster. RustCrypto's key schedule is quicker,
+but its keystream measured slower than the portable engine's at every length
+in [BENCHES.md](BENCHES.md), so enabling it slows bulk RC4 down; it is there
+for those who prefer RustCrypto's implementation.
+
 ## Usage
 
 ```toml

@@ -33,4 +33,27 @@ the figures.
 
 ## Recorded results
 
-Not measured yet.
+Measured on 2026-10-24:
+
+- CPU: Intel Core i7-1185G7, on mains power.
+- Toolchain: rustc 1.98.0, `x86_64-pc-windows-msvc`, optimized bench profile.
+- The portable 16 KiB case was disturbed in the full run (its interval spanned
+  73 to 796 µs) and was measured again on its own; the table shows the rerun.
+- These are estimates from one local run, not portable guarantees.
+
+Keystream throughput (higher is better):
+
+| Length | Portable | RustCrypto |
+| ---: | ---: | ---: |
+| 64 B | 365 MiB/s | 220 MiB/s |
+| 1 KiB | 377 MiB/s | 325 MiB/s |
+| 16 KiB | 359 MiB/s | 324 MiB/s |
+
+Key setup in µs per initialisation with a 16-byte key (lower is better):
+
+| Portable | RustCrypto |
+| ---: | ---: |
+| 1.84 | 0.99 |
+
+RustCrypto's key schedule is faster, but its keystream is slower than the
+portable engine's at every measured length.

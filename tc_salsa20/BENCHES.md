@@ -33,4 +33,32 @@ the figures.
 
 ## Recorded results
 
-Not measured yet.
+Measured on 2026-10-24:
+
+- CPU: Intel Core i7-1185G7, on mains power.
+- Toolchain: rustc 1.98.0, `x86_64-pc-windows-msvc`, optimized bench profile.
+- RustCrypto chooses its backend at run time, and this run did not record
+  which one it used.
+- These are estimates from one local run, not portable guarantees.
+
+Keystream throughput (higher is better):
+
+| Variant | Length | Portable | RustCrypto |
+| --- | ---: | ---: | ---: |
+| Salsa20 | 64 B | 328 MiB/s | 461 MiB/s |
+| Salsa20 | 1 KiB | 333 MiB/s | 560 MiB/s |
+| Salsa20 | 16 KiB | 328 MiB/s | 564 MiB/s |
+| XSalsa20 | 64 B | 366 MiB/s | 569 MiB/s |
+| XSalsa20 | 1 KiB | 374 MiB/s | 627 MiB/s |
+| XSalsa20 | 16 KiB | 371 MiB/s | 634 MiB/s |
+
+Key setup in ns per initialisation (lower is better):
+
+| Variant | Portable | RustCrypto |
+| --- | ---: | ---: |
+| Salsa20 | 21.9 | 35.0 |
+| XSalsa20 | 148.9 | 130.5 |
+
+RustCrypto's keystream runs at about 1.7 times the portable engine's on long
+messages, so the selecting engines use it wherever it covers the request. The
+portable Salsa20 key setup is faster, but setup is paid once per key and IV.

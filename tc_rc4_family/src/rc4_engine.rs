@@ -14,6 +14,11 @@ use crate::Rc4RustCryptoEngine as Inner;
 /// and on [`Rc4PortableEngine`](crate::Rc4PortableEngine) without it; both
 /// accept the same keys, and the backend is chosen at compile time.
 ///
+/// RustCrypto's key schedule is faster, but its keystream measured slower than
+/// the portable engine's at every length benchmarked (see `BENCHES.md`), so
+/// enabling `rustcrypto` slows bulk RC4 down; it is there for those who prefer
+/// RustCrypto's implementation.
+///
 /// **Variable time (cache timing):** both backends swap and output
 /// permutation entries at indices taken from the permutation, so the positions
 /// depend on secrets. RC4's keystream has known biases and the cipher is
